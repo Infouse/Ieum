@@ -273,6 +273,7 @@ const Mypageread = (props) => {
     const [more, setMore] = useState(false);
     const moreRef = useRef();
     const router = useRouter();
+    const {data: session} = useSession();
     const detailMove = () => {
         router.push({
             pathname: '/Detail',
@@ -322,7 +323,7 @@ const Mypageread = (props) => {
              more === true ? 
              <div ref={moreRef} className={s.MypageComment_moreBox}>
                 <span>수정</span>
-                <span onClick={deleteCommentBtn}>삭제</span>
+                <span onClick={deleteReadBtn}>삭제</span>
              </div>
              : <span 
              onClick={()=>setMore(!more)}
@@ -338,12 +339,15 @@ const Mypagereading = (props) => {
     const [more, setMore] = useState(false);
     const moreRef = useRef();
     const router = useRouter();
+    const {data: session} = useSession();
     const detailMove = () => {
         router.push({
             pathname: '/Detail',
             query: { itemId: props.item.bookid },
         });
       };
+
+      console.log(props.item)
 
     const handleClickOutside = (event) => {
         if (moreRef.current && !moreRef.current.contains(event.target)) {
@@ -374,7 +378,7 @@ const Mypagereading = (props) => {
             <div
             onClick={detailMove} 
             className={s.MypageComment_img} 
-            style={{backgroundImage:`url(${props.item.cover})`}}></div>
+            style={{backgroundImage:`url(${props.item})`}}></div>
             <div className={s.MypageComment_text}>
      
                 <p className={s.MypageComment_review}>
